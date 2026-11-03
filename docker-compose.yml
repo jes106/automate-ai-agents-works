@@ -1,0 +1,22 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    ports: ["5678:5678"]
+    environment:
+      - TZ=Europe/Madrid
+      - GENERIC_TIMEZONE=Europe/Madrid
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on: [campus-mcp]
+
+  campus-mcp:
+    build: ./mcp_servers/campus
+    ports: ["8000:8000"]
+    environment:
+      - DEMO_TODAY=${DEMO_TODAY:-2026-11-03}
+      - TZ=Europe/Madrid
+    volumes:
+      - ./mcp_servers/campus/data:/app/data   # data/outbox.jsonl visible on the host
+
+volumes:
+  n8n_data:

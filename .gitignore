@@ -1,0 +1,4 @@
+.env
+__pycache__/
+.pytest_cache/
+mcp_servers/campus/data/outbox.jsonl

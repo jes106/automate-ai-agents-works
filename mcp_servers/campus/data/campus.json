@@ -1,0 +1,33 @@
+{
+  "student": {"name": "Lucía", "degree": "Ingeniería Informática"},
+  "courses": [
+    {"id": "BD", "name": "Bases de Datos", "professor": "Dr. Marta Iglesias",
+     "syllabus": ["1. Modelo entidad-relación", "2. Modelo relacional y álgebra relacional", "3. SQL básico", "4. SQL avanzado: joins, subconsultas y vistas", "5. Normalización y formas normales", "6. Transacciones y concurrencia", "7. Índices y optimización de consultas"]},
+    {"id": "REDES", "name": "Redes", "professor": "Dr. Javier Montero",
+     "syllabus": ["1. Modelo OSI y TCP/IP", "2. Capa de enlace y Ethernet", "3. Direccionamiento IP y subredes", "4. Enrutamiento: RIP y OSPF", "5. Transporte: TCP y UDP", "6. Aplicación: DNS y HTTP"]},
+    {"id": "IA", "name": "Inteligencia Artificial", "professor": "Dra. Elena Pardo",
+     "syllabus": ["1. Agentes y entornos", "2. Búsqueda no informada e informada", "3. Búsqueda con adversario", "4. Satisfacción de restricciones", "5. Aprendizaje supervisado", "6. Redes neuronales", "7. Aprendizaje por refuerzo"]},
+    {"id": "IS", "name": "Ingeniería del Software", "professor": "Dr. Pablo Ferrer",
+     "syllabus": ["1. Ciclo de vida del software", "2. Requisitos y casos de uso", "3. Modelado UML", "4. Patrones de diseño", "5. Pruebas de software", "6. Metodologías ágiles"]},
+    {"id": "EST", "name": "Estadística", "professor": "Dra. Carmen Lozano",
+     "syllabus": ["1. Estadística descriptiva", "2. Probabilidad", "3. Variables aleatorias", "4. Distribuciones notables", "5. Inferencia: intervalos de confianza", "6. Contraste de hipótesis"]}
+  ],
+  "weekly": [
+    {"id": "cls-bd-lun", "title": "Clase: Bases de Datos", "kind": "class", "course_id": "BD", "weekday": 0, "start": "09:00", "end": "11:00"},
+    {"id": "cls-redes-lun", "title": "Clase: Redes", "kind": "class", "course_id": "REDES", "weekday": 0, "start": "11:30", "end": "13:30"},
+    {"id": "cls-ia-mar", "title": "Clase: Inteligencia Artificial", "kind": "class", "course_id": "IA", "weekday": 1, "start": "09:00", "end": "11:00"},
+    {"id": "cls-is-mar", "title": "Clase: Ingeniería del Software", "kind": "class", "course_id": "IS", "weekday": 1, "start": "11:30", "end": "13:30"},
+    {"id": "cls-est-mie", "title": "Clase: Estadística", "kind": "class", "course_id": "EST", "weekday": 2, "start": "09:00", "end": "11:00"},
+    {"id": "cls-bd-mie", "title": "Clase: Bases de Datos", "kind": "class", "course_id": "BD", "weekday": 2, "start": "11:30", "end": "13:30"},
+    {"id": "cls-redes-jue", "title": "Clase: Redes", "kind": "class", "course_id": "REDES", "weekday": 3, "start": "09:00", "end": "11:00"},
+    {"id": "cls-ia-jue", "title": "Clase: Inteligencia Artificial", "kind": "class", "course_id": "IA", "weekday": 3, "start": "11:30", "end": "13:30"},
+    {"id": "cls-is-vie", "title": "Clase: Ingeniería del Software", "kind": "class", "course_id": "IS", "weekday": 4, "start": "09:00", "end": "11:00"},
+    {"id": "cls-est-vie", "title": "Clase: Estadística", "kind": "class", "course_id": "EST", "weekday": 4, "start": "11:30", "end": "13:30"},
+    {"id": "gym-mar", "title": "Gimnasio", "kind": "personal", "weekday": 1, "start": "19:00", "end": "20:30"},
+    {"id": "gym-jue", "title": "Gimnasio", "kind": "personal", "weekday": 3, "start": "19:00", "end": "20:30"},
+    {"id": "job-sab", "title": "Trabajo a tiempo parcial", "kind": "personal", "weekday": 5, "start": "09:00", "end": "14:00"}
+  ],
+  "one_off": [
+    {"id": "exam-ia", "title": "Examen: Inteligencia Artificial", "kind": "exam", "course_id": "IA", "start": "2026-11-12T10:00", "end": "2026-11-12T12:00"}
+  ]
+}
