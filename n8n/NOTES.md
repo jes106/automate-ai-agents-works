@@ -1,11 +1,21 @@
-# Notes on what is (not) verified
+# What is verified and what is not
 
-- **`n8n/workflows/study-planner.json` is intentionally NOT included.** While preparing this repo the sandbox could not reach `docs.n8n.io`, so node type names, parameter names and the human-review wiring could not be confirmed against the current docs. A guessed export would likely fail on import or silently drop the approval gate - the worst failure for this talk. `BUILD.md` is the supported path.
-- **Verify before the talk (marked "(verify)" in BUILD.md):**
-  - Exact label/location of the *human review* step on the tool connector, and that the **Chat** channel is offered for it.
-  - Whether it works with the **MCP Client Tool** node in your n8n version (this repo uses two MCP nodes, READ and WRITE, so approval only covers writes).
-  - Expression variables for tool name/parameters in the approval message (`$tool.name`, `$tool.parameters` are a guess; the default message may already show them).
-  - MCP Client Tool option names (*Server Transport = HTTP Streamable*, *Tools to Include*).
-  - Model name: `gemini-3.8-flash` was requested; pick the newest Flash in the dropdown.
-- **Tip once it works:** export it (workflow menu → Download) and commit the JSON as `n8n/workflows/study-planner.json`; it is then a verified import for next time. Credentials are not included in exports.
-- **Verified here:** the MCP server (FastMCP 4.1.6) answers on `http://localhost:8000/mcp` with streamable HTTP, also with `Host: campus-mcp:8000`; `/sse` is 404; 8 tools listed; pytest passes. Docker/compose files were not run in the sandbox.
+## `workflows/study-planner-telegram.json` (Telegram bot) - checked against n8n package source
+Node types, versions and parameter names were read from the published npm packages (`@n8n/n8n-nodes-langchain` 2.46.4, `n8n-nodes-base` 2.15.1, `n8n-core`) and the n8n repo (`packages/cli/src/tool-generation/hitl-tools.ts`), not guessed:
+- `telegramTrigger` 1.2 (`updates`, `additionalFields.chatIds/userIds`), `telegram` 1.2 (`resource`, `operation`, `chatId`, `text`, `additionalFields.appendAttribution`).
+- `agent` 3.1 (`promptType: define`, `text`, `options.systemMessage`, `options.maxIterations`), `lmChatGoogleGemini` 1.2 (`modelName`, default `models/gemini-3-flash-preview`), `memoryBufferWindow` 1.2 (`sessionIdType: customKey`, `sessionKey`, `contextWindowLength`).
+- `mcpClientTool` 1.4 (`endpointUrl`, `serverTransport: httpStreamable`, `authentication`, `include: selected`, `includeTools`).
+- Human review = the auto-generated `n8n-nodes-base.telegramHitlTool` (from Telegram's *Send and Wait*): **gated tools → HITL node → Agent** (`ai_tool` connections); the default message uses `{{ $tool.name }}` / `{{ $tool.parameters }}`; denial returns "User rejected the tool call ... STOP" to the agent.
+
+**Not verified (no n8n instance could run in the sandbox: no Docker daemon):**
+- The JSON was never imported into a running n8n. Expect to re-select credentials; if a node shows as unknown, rebuild it by hand (the structure above is the recipe).
+- The `includeTools` names are valid only if the MCP server lists them (it does; tested over HTTP).
+- The Gemini model is `models/gemini-3-flash-preview` (newest Flash default in the package); `gemini-3.8-flash` from the brief is not something I could confirm. Change it in the node if your list has a newer Flash.
+- The `HitlTool` variants are generated when n8n loads nodes; if your n8n is older than that feature the node will not exist (use `n8nio/n8n:latest`).
+- The credential ids in the JSON are placeholders (names only).
+
+## `BUILD.md` (n8n Chat version, built by hand)
+Still hand-built; the Chat HITL step and `$tool.*` message variables are consistent with the sources above. It needs Chat Trigger *Response Mode = Using Response Nodes*. No importable JSON for this variant.
+
+## Server
+FastMCP 4.1.6: `http://localhost:8000/mcp`, tested with `Host: campus-mcp:8000`; pytest passes. Compose files not run (no Docker daemon).

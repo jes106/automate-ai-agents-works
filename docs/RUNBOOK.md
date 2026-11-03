@@ -5,7 +5,7 @@
 3. `make up` - builds `campus-mcp`, starts n8n. Check `curl -s localhost:8000/health` → `{"ok":true}`.
 4. Open http://localhost:5678, create the owner account (first run only).
 5. Create the credential **Gemini** (Credentials → Create → *Google Gemini(PaLM) API* → paste key → name `Gemini`).
-6. Build the workflow following `n8n/BUILD.md` (≈15 min). There is no import JSON (see `n8n/NOTES.md`).
+6. Either build the Chat workflow by hand with `n8n/BUILD.md` (≈15 min), or run the Telegram bot: import `n8n/workflows/study-planner-telegram.json` and follow `n8n/TELEGRAM.md` (needs a public https tunnel). See `n8n/NOTES.md` for what is verified.
 7. `make reset` - restores the calendar and empties the outbox.
 8. Second terminal on the projector: `make outbox`.
 9. Run **B1**, **B2**, **B3** from `demo/messages.md` (`make reset` between them if you want clean state).

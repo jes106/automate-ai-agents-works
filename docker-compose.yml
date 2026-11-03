@@ -5,6 +5,8 @@ services:
     environment:
       - TZ=Europe/Madrid
       - GENERIC_TIMEZONE=Europe/Madrid
+      # Telegram needs a PUBLIC https URL (see n8n/TELEGRAM.md); localhost is fine for the editor-only demo
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
     volumes:
       - n8n_data:/home/node/.n8n
     depends_on: [campus-mcp]

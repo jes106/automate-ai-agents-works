@@ -16,4 +16,6 @@ make test      # pytest (pip install -r mcp_servers/campus/requirements-dev.txt)
 make reset     # restore mock data between rehearsals
 ```
 Then follow [`n8n/BUILD.md`](n8n/BUILD.md) to build the workflow, and [`docs/RUNBOOK.md`](docs/RUNBOOK.md) / [`demo/messages.md`](demo/messages.md) to run the demo.
+**Telegram bot variant** (conversational agenda in a Telegram chat, approvals via buttons): see [`n8n/TELEGRAM.md`](n8n/TELEGRAM.md) and the importable `n8n/workflows/study-planner-telegram.json`.
+
 No secrets in this repo: the Gemini key lives only in the n8n credential. "Today" is `DEMO_TODAY` (default 2026-11-03). Caveats on what is unverified: [`n8n/NOTES.md`](n8n/NOTES.md).

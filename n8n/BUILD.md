@@ -44,7 +44,7 @@ Open http://localhost:5678 and create the owner account (first run only). Have a
 4. **Tools to Include**: *All* (we split read/write by approval in the next step).
 5. Click **Execute step** / open the node: the tool list should show 8 tools: `list_courses, get_syllabus, list_events, find_free_slots, check_clashes, create_study_block, move_event, delete_event`.
 
-## 7. Human approval on the write tools (3 min) **(verify)**
+## 7. Human approval on the write tools (3 min)
 n8n has a "human review for tool calls" feature: the agent pauses before running a tool and asks a human in a channel; *Approve* runs it, *Deny* returns a "denied" result to the agent.
 
 The MCP Client Tool exposes all 8 tools through one node, so the approval must be scoped to the 3 write tools only. Preferred layout - **two MCP Client Tool nodes**:
@@ -52,14 +52,14 @@ The MCP Client Tool exposes all 8 tools through one node, so the approval must b
 1. Rename the node from step 6 to `Campus READ`. Set **Tools to Include** = *Selected* → pick `list_courses, get_syllabus, list_events, find_free_slots, check_clashes`.
 2. Add a second **MCP Client Tool**, rename `Campus WRITE`, same endpoint/transport, **Tools to Include** = *Selected* → `create_study_block, move_event, delete_event`.
 3. Hover over the connection line between `Campus WRITE` and the AI Agent. A **+** (or *"Add human review step"*) should appear on the connector. Click it.
-4. Choose the channel **Chat** (the n8n Chat, so the approval appears in the same window as the conversation). If Chat is not offered for your version, see *Troubleshooting → approval not shown*.
+4. Choose the channel **Chat** (the n8n Chat, so the approval appears in the same window as the conversation). The Chat review node only works if the **Chat Trigger → Response Mode = "Using Response Nodes"** (set it in the trigger's Options first). If Chat is not offered for your version, see *Troubleshooting → approval not shown*.
 5. Configure the approval message so it shows the tool and its parameters. Use an expression such as:
    ```
    The agent wants to run: {{ $tool.name }}
    Parameters:
    {{ JSON.stringify($tool.parameters, null, 2) }}
    ```
-   If the node already prints the tool name and parameters by default, keep the default. If the variables above are not accepted, open the expression editor on the message field and pick the tool name / parameters from the left-hand variable list **(verify)**.
+   This is the node's own default message (`$tool.name`, `$tool.parameters`), so you can simply keep the default.
 6. Leave *Approve* / *Deny* buttons labels as default (`Approve`, `Decline`).
 
 Do the same human-review step on **nothing else**: reads must stay fast.
